@@ -15,38 +15,12 @@ namespace DevBlogPF.BLL.Repositories
 
         public void AddTagToTagList(Tag tag, Post post)
         {
-
-            Post foundPost = _posts.Find(t => t.PostID == post.PostID);
-            if (foundPost != null)
-            {
-                
-                listOfTags.Add(tag);
-            }
-            else
-            {
-                throw new ArgumentException("TagList does not exist.");
-            }
+            post.TagList.Tags.Add(tag);
         }
 
-        public void RemoveTagFromList(Tag tag, TagList tagList)
+        public void RemoveTagFromList(Tag tag, Post post)
         {
-            TagList foundTagList = TagLists.Find(t => t.TagListID == tagList.TagListID);
-            if (foundTagList != null)
-            {
-                Tag foundTag = _tagRepo.tags.Find(t => t.TagID == tag.TagID);
-                if (foundTag != null)
-                {
-
-                }
-                else
-                {
-                    throw new ArgumentException("Tag does not exist.");
-                }
-            }
-            else
-            {
-                throw new ArgumentException("TagList does not exist.");
-            }
+            post.TagList.Tags.Remove(tag);
         }
     }
 }

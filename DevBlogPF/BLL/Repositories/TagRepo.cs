@@ -10,7 +10,7 @@ namespace DevBlogPF.BLL.Repositories
 {
     public class TagRepo : ITagRepo
     {
-        List<Tag> tags { get; set; } = new List<Tag>();
+        private List<Tag> _tags = [];
         public void CreateTag(string name)
         {
             if (string.IsNullOrEmpty(name))
@@ -18,15 +18,15 @@ namespace DevBlogPF.BLL.Repositories
                 throw new ArgumentException("Tag name cannot be null or empty.");
             }
             Tag tag = new Tag(name);
-            tags.Add(tag);
+            _tags.Add(tag);
         }
 
         public void DeleteTag(Tag tag)
         {
-            Tag foundTag = tags.Find(t => t.TagID == tag.TagID);
+            Tag foundTag = _tags.Find(t => t.TagID == tag.TagID);
             if (foundTag != null)
             {
-                tags.Remove(foundTag);
+                _tags.Remove(foundTag);
             }
             else
             {
@@ -36,7 +36,7 @@ namespace DevBlogPF.BLL.Repositories
 
         public List<Tag> GetTags()
         {
-            return tags;
+            return _tags;
         }
     }
 }

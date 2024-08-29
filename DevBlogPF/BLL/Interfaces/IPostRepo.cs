@@ -9,7 +9,7 @@ namespace DevBlogPF.BLL.Interfaces
 {
     public interface IPostRepo
     {
-        public void AddTag(Tag tag);
-        public void RemoveTag(Tag tag);
+        void AddTagToTagList(Tag tag, Post post);
+        void RemoveTagFromList(Tag tag, Post post);
     }
 }
