@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DevBlogPF.BLL.Interfaces
 {
-    public interface ITagListRepo
+    public interface IPostRepo
     {
         public void AddTag(Tag tag);
         public void RemoveTag(Tag tag);

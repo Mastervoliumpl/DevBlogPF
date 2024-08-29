@@ -1,17 +1,18 @@
-﻿namespace DevBlogPF.Models
+﻿using System.Net.Quic;
+
+namespace DevBlogPF.Models
 {
     public class TagList
     {
         public Guid TagListID { get; set; }
+        public Guid PostID { get; init; }
+        public List<Tag> Tags { get; set; }
 
-        public void AddTag(Tag tag)
+        public TagList(Guid postID)
         {
-            Tags.Add(tag);
-        }
-
-        public void RemoveTag(Tag tag)
-        {
-            Tags.Remove(tag);
+            TagListID = Guid.NewGuid();
+            PostID = postID;
+            Tags = []; // means the same as new "List<Tag>();"
         }
     }
 }

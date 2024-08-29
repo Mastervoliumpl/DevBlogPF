@@ -28,20 +28,5 @@ namespace DevBlogPF.BLL.Repositories
         {
 
         }
-
-        public void UpdatePortfolioPost()
-        {
-
-        }
-
-        public void SetTagListPortfolioPost(Post postObj, TagList tagList)
-        {
-            postObj.TagList = tagList;
-        }
-
-        public void RemoveTagListPortfolioPost(Post postObj)
-        {
-            postObj.TagList = null;
-        }
     }
 }
