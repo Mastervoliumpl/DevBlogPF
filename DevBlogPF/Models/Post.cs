@@ -10,11 +10,13 @@
         public Enum PostType { get; set; }
         public List<Image> Images { get; set; } = new List<Image>();
 
-        public Post()
+        public Post(Author author)
         {
             Guid id = Guid.NewGuid();
             PostID = id;
             TagList = new TagList(id);
+            Author = author;
+            DateCreated = DateTime.Now;
         }
     }
 

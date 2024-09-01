@@ -9,10 +9,9 @@ namespace DevBlogPF.BLL.Interfaces
 {
     public interface IBlogPostRepo
     {
-        public void CreateBlogPost();
+        public void CreateBlogPost(Author author, string title, string bodyText);
         public void UpdateBlogPost();
         public void DeleteBlogPost();
-        public void SetTagListBlogPost(Post postObj, TagList tagList);
-        public void RemoveTagListBlogPost(Post postObj);
+        public void ReturnBlogPosts(BlogPost bPost);
     }
 }
