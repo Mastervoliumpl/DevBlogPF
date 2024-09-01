@@ -12,7 +12,7 @@ namespace DevBlogPF
             ServiceProvider serviceProvider = new ServiceCollection()
                 .AddSingleton<IBlogPostRepo, BlogPostRepo>()
                 .AddSingleton<IImageRepo, ImageRepo>()
-                .AddSingleton<IPortfolioItemRepo, PortfolioItemRepo>()
+                .AddSingleton<IPortfolioRepo, PortfolioRepo>()
                 .AddSingleton<IPortfolioRepo, PortfolioRepo>()
                 .AddSingleton<IPostRepo, TagListRepo>()
                 .AddSingleton<ITagRepo, TagRepo>()
@@ -21,7 +21,7 @@ namespace DevBlogPF
             // Resolve the dependencies from the container
             var blogPostRepo = serviceProvider.GetService<IBlogPostRepo>();
             var imageRepo = serviceProvider.GetService<IImageRepo>();
-            var portfolioItemRepo = serviceProvider.GetService<IPortfolioItemRepo>();
+            var portfolioItemRepo = serviceProvider.GetService<IPortfolioRepo>();
             var portfolioRepo = serviceProvider.GetService<IPortfolioRepo>();
             var tagListRepo = serviceProvider.GetService<IPostRepo>();
             var tagRepo = serviceProvider.GetService<ITagRepo>();

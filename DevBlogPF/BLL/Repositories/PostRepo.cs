@@ -13,6 +13,16 @@ namespace DevBlogPF.BLL.Repositories
             _posts = new List<Post>();
         }
 
+        public void AddPost(Post post)
+        {
+            _posts.Add(post);
+        }
+
+        public List<Post> GetAllPosts()
+        {
+            return _posts;
+        }
+
         public void AddTagToTagList(Tag tag, Post post)
         {
             post.TagList.Tags.Add(tag);
