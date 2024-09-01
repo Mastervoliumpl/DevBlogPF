@@ -4,7 +4,7 @@ namespace DevBlogPF.Models
 {
     public class TagList
     {
-        public Guid TagListID { get; set; }
+        public Guid TagListID { get; init; }
         public Guid PostID { get; init; }
         public List<Tag> Tags { get; set; }
 
