@@ -25,12 +25,12 @@ namespace DevBlogPF.BLL.Repositories
 
         public void AddTagToTagList(Tag tag, Post post)
         {
-            post.TagList.Tags.Add(tag);
+            post.Tags.Add(tag);
         }
 
         public void RemoveTagFromList(Tag tag, Post post)
         {
-            post.TagList.Tags.Remove(tag);
+            post.Tags.Remove(tag);
         }
     }
 }

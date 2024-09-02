@@ -153,7 +153,16 @@ namespace DevBlogPF
                     // Display all posts
                     foreach (var post in posts)
                     {
-                        WriteLine($"Post Title: {post.Title}, Post ID: {post.PostID}, Post Type: {post.PostType}");
+                        if (post.PostType == PostType.BlogPost)
+                        {
+                            BlogPost viewPost = (BlogPost)post;
+                            WriteLine($"Post Title: {viewPost.Title}, Post ID: {viewPost.PostID}, Post Type: {viewPost.PostType}");
+                        }
+                        else
+                        {
+                            Portfolio viewPost = (Portfolio)post;
+                            WriteLine($"Post Title: {viewPost.Title}, Post ID: {viewPost.PostID}, Post Type: {viewPost.PostType}");
+                        }
                     }
                 }
             }
