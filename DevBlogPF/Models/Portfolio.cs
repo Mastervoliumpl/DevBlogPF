@@ -4,7 +4,7 @@
     {
         public string Description { get; set; }
 
-        public Portfolio(string title, string projectName, string description, Author author) : base(author)
+        public Portfolio(string title, string description, Author author) : base(author)
         {
             Title = title;
             Description = description;

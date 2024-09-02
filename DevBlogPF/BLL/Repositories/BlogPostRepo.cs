@@ -17,20 +17,11 @@ namespace DevBlogPF.BLL.Repositories
             _postRepo = postRepo;
         }
 
-        public void CreateBlogPost(Author author, string title, string bodyText)
+        public void CreateBlogPost(string title, string bodyText, Author author)
         {
             // Create a new BlogPost
             BlogPost blogPost = new BlogPost(title, author, bodyText);
             _postRepo.AddPost(blogPost);
-        }
-
-        public void DeleteBlogPost(Guid postID)
-        {
-            // Find the BlogPost
-            BlogPost blogPost = (BlogPost)_postRepo.GetAllPosts().Find(p => p.PostID == postID);
-
-            // Delete the BlogPost
-            _postRepo.RemovePost(blogPost);
         }
 
         public void EditBlogPost(string title, string bodyText, Guid postID)
@@ -41,10 +32,6 @@ namespace DevBlogPF.BLL.Repositories
             // Edit the BlogPost
             blogPost.Title = title;
             blogPost.BodyText = bodyText;
-        }
-
-        public void ReturnBlogPosts(BlogPost bPost)
-        {
         }
     }
 }

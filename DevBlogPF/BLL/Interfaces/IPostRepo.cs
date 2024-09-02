@@ -11,7 +11,7 @@ namespace DevBlogPF.BLL.Interfaces
     public interface IPostRepo
     {
         void AddPost(Post post);
-        void RemovePost(Post post);
+        public void DeletePost(Guid postID);
         List<Post> GetAllPosts();
         public Post GetPostByID(Guid postID);
         void AddTagToTagList(Tag tag, Post post);

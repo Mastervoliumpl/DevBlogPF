@@ -18,9 +18,10 @@ namespace DevBlogPF.BLL.Repositories
             _posts.Add(post);
         }
 
-        public void RemovePost(Post post)
+        public void DeletePost(Guid postID)
         {
-            _posts.Remove(post);
+            // Find the post and delete the post
+            _posts.Remove(GetAllPosts().Find(p => p.PostID == postID));
         }
 
         public List<Post> GetAllPosts()

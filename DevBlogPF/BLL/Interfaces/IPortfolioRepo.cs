@@ -9,8 +9,7 @@ namespace DevBlogPF.BLL.Interfaces
 {
     public interface IPortfolioRepo
     {
-        public void CreatePortfolioPost();
-        public void EditPortfolioPost();
-        public void DeletePortfolioPost();
+        void CreatePortfolioPost(string title, string description, Author author);
+        void EditPortfolioPost(string title, string description, Guid postID);
     }
 }
