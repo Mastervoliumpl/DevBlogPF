@@ -4,6 +4,7 @@ using DevBlogPF.BLL.Repositories;
 using DevBlogPF.Models;
 using Microsoft.Extensions.DependencyInjection;
 using System.Security.Cryptography.X509Certificates;
+using System.Xml.Linq;
 using static System.Console;
 
 namespace DevBlogPF
@@ -43,10 +44,10 @@ namespace DevBlogPF
                         DisplayAllTags();
                         break;
                     case '3':
-                        CreateBlogPost();
+                        CreatePost();
                         break;
                     case '4':
-                        //EditBlogPost();
+                        EditPost();
                         break;
                     case '5':
                         DisplayAllPosts();
@@ -74,9 +75,9 @@ namespace DevBlogPF
                 WriteLine("----------------------------");
                 WriteLine("Choose one of the following:");
                 WriteLine("1 - Create Tag");
-                WriteLine("2 - Return all Tags");
-                WriteLine("3 - Create blog post");
-                WriteLine("4 - N/A");
+                WriteLine("2 - Display all Tags");
+                WriteLine("3 - Create post");
+                WriteLine("4 - Edit post");
                 WriteLine("5 - Diplay all posts");
                 WriteLine("6 - N/A");
                 WriteLine("x - Exit");
@@ -86,8 +87,7 @@ namespace DevBlogPF
             void CreateTag()
             {
                 // Get the tag name from the user
-                WriteLine("Enter the name of the tag:");
-                string name = ReadLine();
+                string name = ReadValidStringInput("Enter the name of the tag:");
 
                 // Remove spaces from the tag name
                 name = name.Replace(" ", "");
@@ -116,27 +116,121 @@ namespace DevBlogPF
                 }
             }
 
-            void CreateBlogPost()
+            void CreatePost()
             {
-                // Get the data for the blog post from the user
-                WriteLine("Enter the title of the post:");
-                string title = ReadLine();
+                ConsoleKeyInfo keyinfo;
 
-                WriteLine("Enter the author's first name:");
-                string firstName = ReadLine();
+                Clear();
+                WriteLine("Choose post type:");
+                WriteLine("1 - BlogPost");
+                WriteLine("2 - Portfolio");
+                WriteLine("x - Exit");
+                keyinfo = ReadKey(true);
 
-                WriteLine("Enter the author's last name:");
-                string lastName = ReadLine();
+                switch (keyinfo.KeyChar)
+                {
+                    case '1':
+                        // Get the data for the blog post from the user
+                        Clear();
+                        string title = ReadValidStringInput("Enter the title of the post:");
+                        string firstName = ReadValidStringInput("Enter the author's first name:");
+                        string lastName = ReadValidStringInput("Enter the author's last name:");
 
-                // Create the author object
-                var author = new Author(firstName, lastName);
+                        // Create the author object
+                        var author = new Author(firstName, lastName);
 
-                // Get the post body text from the user
-                WriteLine("Enter the body text of the post:");
-                string bodyText = ReadLine();
+                        // Get the post body text from the user
+                        WriteLine("Enter the body text of the post:");
+                        string bodyText = ReadLine();
 
-                // Create a new post
-                blogPostRepo.CreateBlogPost(author, title, bodyText);
+                        // Create a new post
+                        blogPostRepo.CreateBlogPost(author, title, bodyText);
+
+                        WriteLine("Post created successfully!");
+                        break;
+                    case '2':
+
+                        WriteLine("NotImplemented!");
+                        break;
+                    default:
+                        WriteLine("Incorrect choice. Try again.");
+                        break;
+                }
+            }
+
+            void EditPost()
+            {
+                Guid postID;
+                bool isValidGuid = false;
+
+                do
+                {
+                    Clear();
+                    WriteLine("Enter the ID of the post you want to edit: (x to exit)");
+                    string input = ReadLine();
+
+                    if (input.ToLower() == "x")
+                    {
+                        return; // Return to the menu if 'x' is entered
+                    }
+
+                    isValidGuid = Guid.TryParse(input, out postID);
+
+                    if (!isValidGuid)
+                    {
+                        WriteLine("Invalid GUID format. Please try again.");
+                        WriteLine("Press any key to continue...");
+                        ReadKey();
+                    }
+                } while (!isValidGuid);
+
+                ConsoleKeyInfo keyinfo;
+
+                Clear();
+                WriteLine("Choose post type:");
+                WriteLine("1 - BlogPost");
+                WriteLine("2 - Portfolio");
+                WriteLine("x - Exit");
+                keyinfo = ReadKey(true);
+
+                switch (keyinfo.KeyChar)
+                {
+                    case '1':
+                        // Get the existing post from the repository
+                        var existingPost = (BlogPost)postRepo.GetPostByID(postID);
+
+                        if (existingPost == null)
+                        {
+                            Clear();
+                            WriteLine("Post not found.");
+                            return;
+                        }
+
+                        // Display the current values of the post
+                        Clear();
+                        WriteLine("Current Post Details:");
+                        WriteLine($"Title: {existingPost.Title}");
+                        WriteLine($"Author: {existingPost.Author.FirstName} {existingPost.Author.LastName}");
+                        WriteLine($"Body Text: {existingPost.BodyText}");
+
+                        // Prompt the user for new values
+                        string newTitle = ReadValidStringInput("Enter the new title of the post:");
+                        string newBodyText = ReadValidStringInput("Enter the new body text of the post:");
+
+                        // Update the post
+                        blogPostRepo.EditBlogPost(newTitle, newBodyText, postID);
+
+                        Clear();
+                        WriteLine("Post updated successfully.");
+                        break;
+                    case '2':
+
+                        WriteLine("NotImplemented!");
+                        break;
+                    default:
+                        WriteLine("Incorrect choice. Try again.");
+                        break;
+                }
             }
 
             void DisplayAllPosts()
@@ -156,16 +250,28 @@ namespace DevBlogPF
                         if (post.PostType == PostType.BlogPost)
                         {
                             BlogPost viewPost = (BlogPost)post;
-                            WriteLine($"Post Title: {viewPost.Title}, Post ID: {viewPost.PostID}, Post Type: {viewPost.PostType}");
+                            WriteLine($"Post Title: {viewPost.Title}, Post ID: {viewPost.PostID}, Post Type: {viewPost.PostType}, Post Created: {viewPost.DateCreated}, Post Body: {viewPost.BodyText}");
                         }
                         else
                         {
                             Portfolio viewPost = (Portfolio)post;
-                            WriteLine($"Post Title: {viewPost.Title}, Post ID: {viewPost.PostID}, Post Type: {viewPost.PostType}");
+                            WriteLine($"Post Title: {viewPost.Title}, Post ID: {viewPost.PostID}, Post Type: {viewPost.PostType}, Post Created: {viewPost.DateCreated}, Post Description: {viewPost.Description}");
                         }
                     }
                 }
             }
+        }
+
+        public static string ReadValidStringInput(string prompt)
+        {
+            string input;
+            do
+            {
+                WriteLine(prompt);
+                input = ReadLine();
+            } while (string.IsNullOrWhiteSpace(input));
+
+            return input;
         }
     }
 }

@@ -24,14 +24,23 @@ namespace DevBlogPF.BLL.Repositories
             _postRepo.AddPost(blogPost);
         }
 
-        public void UpdateBlogPost()
+        public void DeleteBlogPost(Guid postID)
         {
+            // Find the BlogPost
+            BlogPost blogPost = (BlogPost)_postRepo.GetAllPosts().Find(p => p.PostID == postID);
 
+            // Delete the BlogPost
+            _postRepo.RemovePost(blogPost);
         }
 
-        public void DeleteBlogPost()
+        public void EditBlogPost(string title, string bodyText, Guid postID)
         {
+            // Find the BlogPost
+            BlogPost blogPost = (BlogPost)_postRepo.GetAllPosts().Find(p => p.PostID == postID);
 
+            // Edit the BlogPost
+            blogPost.Title = title;
+            blogPost.BodyText = bodyText;
         }
 
         public void ReturnBlogPosts(BlogPost bPost)
