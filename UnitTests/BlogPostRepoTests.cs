@@ -12,12 +12,12 @@ namespace UnitTests.Repositories
         /// <summary>
         /// Creates a mock of the IPostRepo interface. This allows to verify that the BlogPostRepo interacts with its dependencies correctly without needing implementation of IPostRepo.
         /// </summary>
-        private readonly Mock<IPostRepo> _mockPostRepo; // Mock the IPostRepo dependency
+        private readonly Mock<IPostRepo> _mockPostRepo;
 
         public BlogPostRepoTests()
         {
             _mockPostRepo = new Mock<IPostRepo>();
-            _blogPostRepo = new BlogPostRepo(_mockPostRepo.Object); // Inject IPostRepo mock
+            _blogPostRepo = new BlogPostRepo(_mockPostRepo.Object); // Creates a new instance of the BlogPostRepo class and passes the mock object of IPostRepo as a parameter. (Injecting a mock object of the IPostRepo interface into it.)
         }
 
         [Fact]
@@ -34,6 +34,7 @@ namespace UnitTests.Repositories
             // Assert
             /// <summary>
             /// It.IsAny<T>() is used in the here to check that the AddPost method was called with any BlogPost object.
+            /// Verify checks if the AddPost method was called exactly once through the mocked interface.
             /// </summary>
             _mockPostRepo.Verify(pr => pr.AddPost(It.IsAny<BlogPost>()), Times.Once);
         }
@@ -48,8 +49,8 @@ namespace UnitTests.Repositories
             var blogPost = new BlogPost(originalTitle, author, originalBodyText);
             Guid postId = blogPost.PostID;
 
-            // Mock the existing posts in the repository
-            _mockPostRepo.Setup(pr => pr.GetAllPosts()).Returns(new List<Post> { blogPost });
+            _mockPostRepo.Setup(pr => pr.GetAllPosts()) // The .Setup method takes a lambda expression that specifies which method or property of the mocked object to configure, and then allows to define what should happen when that method or property is called.
+                .Returns(new List<Post> { blogPost }); // Setup the GetAllPosts method to return a list with the blogPost object. (Runs GetAllPosts without the actual implementation)
 
             // Act
             _blogPostRepo.EditBlogPost("Updated Blog Post", "Updated body text.", postId);

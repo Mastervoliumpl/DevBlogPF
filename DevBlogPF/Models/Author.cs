@@ -2,17 +2,16 @@
 {
     public class Author
     {
-        public Guid AuthorID { get; init; }
+        public Guid AuthorID { get; init; } = Guid.NewGuid();
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTimeOffset DateCreated { get; set; }
+        public string Password { get; set; }
+        public DateTimeOffset DateCreated { get; set; } = DateTimeOffset.Now;
 
         public Author(string firstName, string lastName)
         {
-            AuthorID = Guid.NewGuid();
             FirstName = firstName;
             LastName = lastName;
-            DateCreated = DateTimeOffset.Now;
         }
     }
 }

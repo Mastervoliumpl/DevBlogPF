@@ -1,16 +1,12 @@
 ﻿using DevBlogPF.BLL.Interfaces;
 using DevBlogPF.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DevBlogPF.BLL.Repositories
 {
     public class TagRepo : ITagRepo
     {
         private List<Tag> _tags = [];
+
         public void CreateTag(string name)
         {
             if (string.IsNullOrEmpty(name))

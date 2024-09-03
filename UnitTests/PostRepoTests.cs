@@ -85,8 +85,8 @@ namespace UnitTests.Repositories
             // Arrange
             var post = new BlogPost("Test Post", _testAuthor, "This is a test blog post body.");
             var tag = new Tag("Test Tag");
-            post.Tags.Add(tag);
             _postRepo.AddPost(post);
+            post.Tags.Add(tag);
 
             // Act
             _postRepo.RemoveTagFromList(tag, post.PostID);
@@ -102,9 +102,9 @@ namespace UnitTests.Repositories
             var post = new BlogPost("Test Post", _testAuthor, "This is a test blog post body.");
             var tag1 = new Tag("Tag 1");
             var tag2 = new Tag("Tag 2");
+            _postRepo.AddPost(post);
             post.Tags.Add(tag1);
             post.Tags.Add(tag2);
-            _postRepo.AddPost(post);
 
             // Act
             var tags = _postRepo.GetTagsByPostID(post.PostID);

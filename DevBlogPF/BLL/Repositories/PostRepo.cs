@@ -1,6 +1,5 @@
 ﻿using DevBlogPF.Models;
 using DevBlogPF.BLL.Interfaces;
-using System;
 
 namespace DevBlogPF.BLL.Repositories
 {
