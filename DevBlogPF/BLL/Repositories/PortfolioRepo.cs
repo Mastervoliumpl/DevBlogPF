@@ -32,6 +32,7 @@ namespace DevBlogPF.BLL.Repositories
             // Edit the PortfolioPost
             portfolioPost.Title = title;
             portfolioPost.Description = description;
+            portfolioPost.DateModified = DateTimeOffset.Now;
         }
     }
 }

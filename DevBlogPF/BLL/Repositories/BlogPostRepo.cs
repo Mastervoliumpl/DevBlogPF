@@ -32,6 +32,7 @@ namespace DevBlogPF.BLL.Repositories
             // Edit the BlogPost
             blogPost.Title = title;
             blogPost.BodyText = bodyText;
+            blogPost.DateModified = DateTimeOffset.Now;
         }
     }
 }
