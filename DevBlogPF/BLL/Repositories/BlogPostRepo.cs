@@ -8,14 +8,9 @@ using DevBlogPF.Models;
 
 namespace DevBlogPF.BLL.Repositories
 {
-    public class BlogPostRepo : IBlogPostRepo
+    public class BlogPostRepo(IPostRepo postRepo) : IBlogPostRepo
     {
-        private readonly IPostRepo _postRepo;
-
-        public BlogPostRepo(IPostRepo postRepo)
-        {
-            _postRepo = postRepo;
-        }
+        private readonly IPostRepo _postRepo = postRepo;
 
         public void CreateBlogPost(string title, string bodyText, Author author)
         {
