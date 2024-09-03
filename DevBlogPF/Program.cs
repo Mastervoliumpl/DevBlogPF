@@ -55,6 +55,15 @@ namespace DevBlogPF
                     case '6':
                         DisplayAllPosts();
                         break;
+                    case '7':
+                        AddTagToPost();
+                        break;
+                    case '8':
+                        RemoveTagFromPost();
+                        break;
+                    case '9':
+                        DisplayPostsTags();
+                        break;
                     case 'x':
                         WriteLine("Exiting...");
                         break;
@@ -80,6 +89,9 @@ namespace DevBlogPF
                 WriteLine("4 - Edit post");
                 WriteLine("5 - Delete post");
                 WriteLine("6 - Diplay all posts");
+                WriteLine("7 - Add tag to post");
+                WriteLine("8 - Remove tag from post");
+                WriteLine("9 - Display post tags");
                 WriteLine("x - Exit");
                 WriteLine("----------------------------");
             }
@@ -234,7 +246,7 @@ namespace DevBlogPF
 
                         // Prompt the user for new values
                         string newTitleP = ReadValidStringInput("Enter the new title of the post:");
-                        string newBodyTextP = ReadValidStringInput("Enter the new body text of the post:");
+                        string newBodyTextP = ReadValidStringInput("Enter the new description of the post:");
 
                         // Update the post
                         portfolioRepo.EditPortfolioPost(newTitleP, newBodyTextP, postID);
@@ -265,12 +277,12 @@ namespace DevBlogPF
                         if (post.PostType == PostType.BlogPost)
                         {
                             BlogPost viewPost = (BlogPost)post;
-                            WriteLine($"Post Title: {viewPost.Title}, Post ID: {viewPost.PostID}, Post Type: {viewPost.PostType}, Post Created: {viewPost.DateCreated}, Post Body: {viewPost.BodyText}");
+                            WriteLine($"Post Title: {viewPost.Title}, Post ID: {viewPost.PostID}, Post Type: {viewPost.PostType}, Post Created: {viewPost.DateCreated}, Post Modified: {viewPost.DateModified}, Post Body: {viewPost.BodyText}");
                         }
                         else
                         {
                             Portfolio viewPost = (Portfolio)post;
-                            WriteLine($"Post Title: {viewPost.Title}, Post ID: {viewPost.PostID}, Post Type: {viewPost.PostType}, Post Created: {viewPost.DateCreated}, Post Description: {viewPost.Description}");
+                            WriteLine($"Post Title: {viewPost.Title}, Post ID: {viewPost.PostID}, Post Type: {viewPost.PostType}, Post Created: {viewPost.DateCreated}, Post Modified: {viewPost.DateModified}, Post Description: {viewPost.Description}");
                         }
                     }
                 }
@@ -295,6 +307,93 @@ namespace DevBlogPF
 
                 WriteLine("Post deleted successfully.");
                        
+            }
+
+            void AddTagToPost()
+            {
+                // Get input from user
+                Guid tagID = ReadValidGuidInput("Enter the ID of the tag:");
+                Guid postID = ReadValidGuidInput("Enter the ID of the post:");
+
+                // Get the existing post from the repository
+                var existingPost = postRepo.GetPostByID(postID);
+
+                if (existingPost == null)
+                {
+                    WriteLine("Post not found.");
+                    return;
+                }
+
+                // Get the existing tag from the repository
+                var existingTag = tagRepo.GetTagByID(tagID);
+
+                if (existingTag == null)
+                {
+                    WriteLine("Tag not found.");
+                    return;
+                }
+
+                // Add the tag to the post
+                postRepo.AddTagToTagList(existingTag, postID);
+
+                WriteLine("Tag added to post successfully.");
+            }
+
+            void RemoveTagFromPost() 
+            {
+                // Get input from user
+                Guid tagID = ReadValidGuidInput("Enter the ID of the tag:");
+                Guid postID = ReadValidGuidInput("Enter the ID of the post:");
+
+                // Get the existing post from the repository
+                var existingPost = postRepo.GetPostByID(postID);
+
+                if (existingPost == null)
+                {
+                    WriteLine("Post not found.");
+                    return;
+                }
+
+                // Get the existing tag from the repository
+                var existingTag = tagRepo.GetTagByID(tagID);
+
+                if (existingTag == null)
+                {
+                    WriteLine("Tag not found.");
+                    return;
+                }
+
+                // Remove the tag from the post
+                postRepo.RemoveTagFromList(existingTag, postID);
+
+                WriteLine("Tag removed from post successfully.");
+            }
+
+            void DisplayPostsTags()
+            {
+                // Get all posts from the database
+                Guid postID = ReadValidGuidInput("Enter the ID of the post:");
+
+                var existingTags = postRepo.GetTagsByPostID(postID);
+
+                if (existingTags == null)
+                {
+                    WriteLine("No tags found.");
+                    return;
+                }
+                else if (existingTags.Count == 0)
+                {
+                    WriteLine("No tags found.");
+                    return;
+                }
+                else
+                {
+                    // Display all tags from a post
+                    foreach (var tag in existingTags)
+                    {
+                        WriteLine($"Tag Name: {tag.TagName}, Tag ID: {tag.TagID}");
+                    }
+                }
             }
         }
 

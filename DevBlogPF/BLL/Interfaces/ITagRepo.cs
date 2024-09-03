@@ -9,8 +9,9 @@ namespace DevBlogPF.BLL.Interfaces
 {
     public interface ITagRepo
     {
-        public void CreateTag(string name);
-        public void DeleteTag(Tag tag);
-        public List<Tag> GetTags();
+        void CreateTag(string name);
+        void DeleteTag(Tag tag);
+        List<Tag> GetTags();
+        Tag GetTagByID(Guid tagID);
     }
 }

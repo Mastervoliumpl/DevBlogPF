@@ -6,12 +6,7 @@ namespace DevBlogPF.BLL.Repositories
 {
     public class PostRepo : IPostRepo
     {
-        private List<Post> _posts;
-
-        public PostRepo()
-        {
-            _posts = new List<Post>();
-        }
+        private List<Post> _posts = [];
 
         public void AddPost(Post post)
         {
@@ -34,14 +29,32 @@ namespace DevBlogPF.BLL.Repositories
             return _posts.Find(p => p.PostID == postID);
         }
 
-        public void AddTagToTagList(Tag tag, Post post)
+        public List<Tag> GetTagsByPostID(Guid postID)
         {
-            post.Tags.Add(tag);
+            var post = GetPostByID(postID);
+            if (post != null)
+            {
+                return post.Tags;
+            }
+            return null;
         }
 
-        public void RemoveTagFromList(Tag tag, Post post)
+        public void AddTagToTagList(Tag tag, Guid postID)
         {
-            post.Tags.Remove(tag);
+            var post = GetPostByID(postID);
+            if (post != null)
+            {
+                post.Tags.Add(tag);
+            }
+        }
+
+        public void RemoveTagFromList(Tag tag, Guid postID)
+        {
+            var post = GetPostByID(postID);
+            if (post != null)
+            {
+                post.Tags.Remove(tag);
+            }
         }
     }
 }

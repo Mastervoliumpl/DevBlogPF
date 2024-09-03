@@ -9,7 +9,7 @@ namespace DevBlogPF.BLL.Interfaces
 {
     public interface IImageRepo
     {
-        public void UploadImage();
-        public void DeleteImage();
+        void UploadImage();
+        void DeleteImage();
     }
 }

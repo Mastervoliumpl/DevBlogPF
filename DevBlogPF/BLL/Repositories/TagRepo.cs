@@ -38,5 +38,10 @@ namespace DevBlogPF.BLL.Repositories
         {
             return _tags;
         }
+
+        public Tag GetTagByID(Guid tagID)
+        {
+            return _tags.Find(t => t.TagID == tagID);
+        }
     }
 }
