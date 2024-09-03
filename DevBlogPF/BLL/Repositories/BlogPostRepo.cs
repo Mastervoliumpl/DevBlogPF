@@ -17,7 +17,7 @@ namespace DevBlogPF.BLL.Repositories
         public void EditBlogPost(string title, string bodyText, Guid postID)
         {
             // Find the BlogPost
-            BlogPost blogPost = (BlogPost)_postRepo.GetAllPosts().Find(p => p.PostID == postID);
+            BlogPost? blogPost = _postRepo.GetAllPosts().Find(p => p.PostID == postID) as BlogPost; // Cast to BlogPost (same as (BlogPost)_postRepo... )
 
             // Edit the BlogPost
             blogPost.Title = title;

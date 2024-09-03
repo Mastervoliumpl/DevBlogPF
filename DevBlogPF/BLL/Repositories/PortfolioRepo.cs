@@ -17,7 +17,7 @@ namespace DevBlogPF.BLL.Repositories
         public void EditPortfolioPost(string title, string description, Guid postID)
         {
             // Find the PortfolioPost
-            Portfolio portfolioPost = (Portfolio)_postRepo.GetAllPosts().Find(p => p.PostID == postID);
+            Portfolio? portfolioPost = _postRepo.GetAllPosts().Find(p => p.PostID == postID) as Portfolio;
 
             // Edit the PortfolioPost
             portfolioPost.Title = title;

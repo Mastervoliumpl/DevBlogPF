@@ -29,6 +29,32 @@ namespace DevBlogPF
             var postRepo = serviceProvider.GetService<IPostRepo>();
             var tagRepo = serviceProvider.GetService<ITagRepo>();
 
+            // Null checks
+            if (blogPostRepo == null)
+            {
+                throw new InvalidOperationException("IBlogPostRepo service could not be resolved.");
+            }
+
+            if (imageRepo == null)
+            {
+                throw new InvalidOperationException("IImageRepo service could not be resolved.");
+            }
+
+            if (portfolioRepo == null)
+            {
+                throw new InvalidOperationException("IPortfolioRepo service could not be resolved.");
+            }
+
+            if (postRepo == null)
+            {
+                throw new InvalidOperationException("IPostRepo service could not be resolved.");
+            }
+
+            if (tagRepo == null)
+            {
+                throw new InvalidOperationException("ITagRepo service could not be resolved.");
+            }
+
             ConsoleKeyInfo keyinfo;
             do
             {
