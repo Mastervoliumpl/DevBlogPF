@@ -1,13 +1,8 @@
 ﻿namespace DevBlogPF.Models
 {
-    public class Tag
+    public class Tag(string name)
     {
-        public Guid TagID { get; init; }
-        public string TagName { get; set; }
-        public Tag(string name)
-        {
-            TagID = Guid.NewGuid();
-            TagName = name;
-        }
+        public Guid TagID { get; init; } = Guid.NewGuid();
+        public string TagName { get; set; } = name;
     }
 }

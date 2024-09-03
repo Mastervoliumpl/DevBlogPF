@@ -10,8 +10,8 @@ namespace UnitTests.Repositories
 {
     public class PostRepoTests
     {
-        private PostRepo _postRepo;
-        private Author _testAuthor;
+        private readonly PostRepo _postRepo;
+        private readonly Author _testAuthor;
 
         public PostRepoTests()
         {

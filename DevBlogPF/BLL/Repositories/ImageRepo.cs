@@ -5,7 +5,8 @@ namespace DevBlogPF.BLL.Repositories
 {
     public class ImageRepo : IImageRepo
     {
-        private List<Image> _imageList = new();
+        private readonly List<Image> _imageList = [];
+
         public void UploadImage()
         {
 

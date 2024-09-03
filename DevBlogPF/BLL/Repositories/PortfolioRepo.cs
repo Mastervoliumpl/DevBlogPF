@@ -3,19 +3,14 @@ using DevBlogPF.BLL.Interfaces;
 
 namespace DevBlogPF.BLL.Repositories
 {
-    public class PortfolioRepo : IPortfolioRepo
+    public class PortfolioRepo(IPostRepo postRepo) : IPortfolioRepo
     {
-        private readonly IPostRepo _postRepo;
-
-        public PortfolioRepo(IPostRepo postRepo)
-        {
-            _postRepo = postRepo;
-        }
+        private readonly IPostRepo _postRepo = postRepo;
 
         public void CreatePortfolioPost(string title, string description, Author author)
         {
             // Create a new PortfolioPost
-            Portfolio portfolioPost = new Portfolio(title, description, author);
+            Portfolio portfolioPost = new(title, description, author);
             _postRepo.AddPost(portfolioPost);
         }
 

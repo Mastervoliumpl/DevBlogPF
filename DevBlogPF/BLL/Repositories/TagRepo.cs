@@ -5,7 +5,7 @@ namespace DevBlogPF.BLL.Repositories
 {
     public class TagRepo : ITagRepo
     {
-        private List<Tag> _tags = [];
+        private readonly List<Tag> _tags = [];
 
         public void CreateTag(string name)
         {
@@ -13,7 +13,7 @@ namespace DevBlogPF.BLL.Repositories
             {
                 throw new ArgumentException("Tag name cannot be null or empty.");
             }
-            Tag tag = new Tag(name);
+            Tag tag = new(name);
             _tags.Add(tag);
         }
 

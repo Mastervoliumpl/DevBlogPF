@@ -50,7 +50,7 @@ namespace UnitTests.Repositories
             Guid postId = blogPost.PostID;
 
             _mockPostRepo.Setup(pr => pr.GetAllPosts()) // The .Setup method takes a lambda expression that specifies which method or property of the mocked object to configure, and then allows to define what should happen when that method or property is called.
-                .Returns(new List<Post> { blogPost }); // Setup the GetAllPosts method to return a list with the blogPost object. (Runs GetAllPosts without the actual implementation)
+                .Returns([blogPost]); // (List<Post> { blogPost }) Setup the GetAllPosts method to return a list with the blogPost object. (Runs GetAllPosts without the actual implementation)
 
             // Act
             _blogPostRepo.EditBlogPost("Updated Blog Post", "Updated body text.", postId);

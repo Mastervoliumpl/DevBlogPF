@@ -10,7 +10,7 @@ namespace DevBlogPF.BLL.Repositories
         public void CreateBlogPost(string title, string bodyText, Author author)
         {
             // Create a new BlogPost
-            BlogPost blogPost = new BlogPost(title, author, bodyText);
+            BlogPost blogPost = new(title, author, bodyText);
             _postRepo.AddPost(blogPost);
         }
 

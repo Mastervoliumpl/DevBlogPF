@@ -11,7 +11,7 @@ namespace DevBlogPF
 {
     public class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             // Create a new instance of the dependency injection container
             ServiceProvider serviceProvider = new ServiceCollection()
@@ -179,8 +179,6 @@ namespace DevBlogPF
             void EditPost()
             {
                 Guid postID;
-                bool isValidGuid = false;
-
                 ConsoleKeyInfo keyinfo;
 
                 Clear();
@@ -412,7 +410,7 @@ namespace DevBlogPF
         public static Guid ReadValidGuidInput(string prompt)
         {
             Guid input;
-            bool isValidGuid = false;
+            bool isValidGuid;
 
             do
             {

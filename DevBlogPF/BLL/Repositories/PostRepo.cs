@@ -5,7 +5,7 @@ namespace DevBlogPF.BLL.Repositories
 {
     public class PostRepo : IPostRepo
     {
-        private List<Post> _posts = [];
+        private readonly List<Post> _posts = [];
 
         public void AddPost(Post post)
         {
@@ -31,29 +31,19 @@ namespace DevBlogPF.BLL.Repositories
         public List<Tag> GetTagsByPostID(Guid postID)
         {
             var post = GetPostByID(postID);
-            if (post != null)
-            {
-                return post.Tags;
-            }
-            return null;
+            return post?.Tags;
         }
 
         public void AddTagToTagList(Tag tag, Guid postID)
         {
             var post = GetPostByID(postID);
-            if (post != null)
-            {
-                post.Tags.Add(tag);
-            }
+            post?.Tags.Add(tag);
         }
 
         public void RemoveTagFromList(Tag tag, Guid postID)
         {
             var post = GetPostByID(postID);
-            if (post != null)
-            {
-                post.Tags.Remove(tag);
-            }
+            post?.Tags.Remove(tag);
         }
     }
 }
