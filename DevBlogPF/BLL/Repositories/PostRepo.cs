@@ -15,7 +15,7 @@ namespace DevBlogPF.BLL.Repositories
         public void DeletePost(Guid postID)
         {
             // Find the post and delete the post
-            _posts.Remove(GetAllPosts().Find(p => p.PostID == postID));
+            _posts.Remove(_posts.Find(p => p.PostID == postID));
         }
 
         public List<Post> GetAllPosts()
@@ -30,19 +30,19 @@ namespace DevBlogPF.BLL.Repositories
 
         public List<Tag> GetTagsByPostID(Guid postID)
         {
-            var post = GetPostByID(postID);
+            Post? post = GetPostByID(postID);
             return post?.Tags;
         }
 
         public void AddTagToTagList(Tag tag, Guid postID)
         {
-            var post = GetPostByID(postID);
+            Post? post = GetPostByID(postID);
             post?.Tags.Add(tag);
         }
 
         public void RemoveTagFromList(Tag tag, Guid postID)
         {
-            var post = GetPostByID(postID);
+            Post? post = GetPostByID(postID);
             post?.Tags.Remove(tag);
         }
     }

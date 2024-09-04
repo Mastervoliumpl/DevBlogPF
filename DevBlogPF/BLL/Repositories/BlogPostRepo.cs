@@ -6,7 +6,7 @@ namespace DevBlogPF.BLL.Repositories
     public class BlogPostRepo(IPostRepo postRepo) : IBlogPostRepo
     {
         private readonly IPostRepo _postRepo = postRepo;
-
+        
         public void CreateBlogPost(string title, string bodyText, Author author)
         {
             // Create a new BlogPost
