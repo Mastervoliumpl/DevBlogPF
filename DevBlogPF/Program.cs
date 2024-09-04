@@ -137,7 +137,7 @@ namespace DevBlogPF
             void DisplayAllTags()
             {
                 // Get all tags from the database
-                var tags = tagRepo.GetTags();
+                List<Tag> tags = tagRepo.GetTags();
 
                 // Check if there are no tags
                 if (tags.Count == 0)
@@ -147,7 +147,7 @@ namespace DevBlogPF
                 else
                 {
                     // Display all tags
-                    foreach (var tag in tags)
+                    foreach (Tag? tag in tags)
                     {
                         WriteLine($"Tag Name: {tag.TagName}, Tag ID: {tag.TagID}");
                     }
@@ -176,7 +176,7 @@ namespace DevBlogPF
                         string bodyTextB = ReadValidStringInput("Enter the body text of the post:");
 
                         // Create the author object
-                        var authorB = new Author(firstNameB, lastNameB);
+                        Author? authorB = new Author(firstNameB, lastNameB);
 
                         // Create a new blog post
                         blogPostRepo.CreateBlogPost(titleB, bodyTextB, authorB);
@@ -189,7 +189,7 @@ namespace DevBlogPF
                         string lastNameP = ReadValidStringInput("Enter the author's last name:");
                         string descriptionP = ReadValidStringInput("Enter the description of the post:");
 
-                        var authorP = new Author(firstNameP, lastNameP);
+                        Author? authorP = new Author(firstNameP, lastNameP);
 
                         // Create a new portfolio post
                         portfolioRepo.CreatePortfolioPost(titleP, descriptionP, authorP);
@@ -221,7 +221,7 @@ namespace DevBlogPF
                         postID = ReadValidGuidInput("Enter the ID of the blog post to edit:");
 
                         // Get the existing post from the repository
-                        var existingBlogPost = (BlogPost)postRepo.GetPostByID(postID);
+                        BlogPost? existingBlogPost = (BlogPost)postRepo.GetPostByID(postID);
 
                         if (existingBlogPost == null)
                         {
@@ -252,7 +252,7 @@ namespace DevBlogPF
                         postID = ReadValidGuidInput("Enter the ID of the blog post to edit:");
 
                         // Get the existing post from the repository
-                        var existingPortfolioPost = (Portfolio)postRepo.GetPostByID(postID);
+                        Portfolio? existingPortfolioPost = (Portfolio)postRepo.GetPostByID(postID);
 
                         if (existingPortfolioPost == null)
                         {
@@ -287,7 +287,7 @@ namespace DevBlogPF
             void DisplayAllPosts()
             {
                 // Get all posts from the database
-                var posts = postRepo.GetAllPosts();
+                List<Post> posts = postRepo.GetAllPosts();
 
                 if (posts.Count == 0)
                 {
@@ -296,7 +296,7 @@ namespace DevBlogPF
                 else
                 {
                     // Display all posts
-                    foreach (var post in posts)
+                    foreach (Post? post in posts)
                     {
                         if (post.PostType == PostType.BlogPost)
                         {
@@ -318,7 +318,7 @@ namespace DevBlogPF
                 Guid postID = ReadValidGuidInput("Enter the ID of the blog post to delete:");
 
                 // Get the existing post from the repository
-                var existingPost = postRepo.GetPostByID(postID);
+                Post? existingPost = postRepo.GetPostByID(postID);
 
                 if (existingPost == null)
                 {
@@ -340,7 +340,7 @@ namespace DevBlogPF
                 Guid postID = ReadValidGuidInput("Enter the ID of the post:");
 
                 // Get the existing post from the repository
-                var existingPost = postRepo.GetPostByID(postID);
+                Post? existingPost = postRepo.GetPostByID(postID);
 
                 if (existingPost == null)
                 {
@@ -349,7 +349,7 @@ namespace DevBlogPF
                 }
 
                 // Get the existing tag from the repository
-                var existingTag = tagRepo.GetTagByID(tagID);
+                Tag? existingTag = tagRepo.GetTagByID(tagID);
 
                 if (existingTag == null)
                 {
@@ -370,7 +370,7 @@ namespace DevBlogPF
                 Guid postID = ReadValidGuidInput("Enter the ID of the post:");
 
                 // Get the existing post from the repository
-                var existingPost = postRepo.GetPostByID(postID);
+                Post? existingPost = postRepo.GetPostByID(postID);
 
                 if (existingPost == null)
                 {
@@ -379,7 +379,7 @@ namespace DevBlogPF
                 }
 
                 // Get the existing tag from the repository
-                var existingTag = tagRepo.GetTagByID(tagID);
+                Tag? existingTag = tagRepo.GetTagByID(tagID);
 
                 if (existingTag == null)
                 {
@@ -398,7 +398,7 @@ namespace DevBlogPF
                 // Get all posts from the database
                 Guid postID = ReadValidGuidInput("Enter the ID of the post:");
 
-                var existingTags = postRepo.GetTagsByPostID(postID);
+                List<Tag> existingTags = postRepo.GetTagsByPostID(postID);
 
                 if (existingTags == null)
                 {
@@ -413,7 +413,7 @@ namespace DevBlogPF
                 else
                 {
                     // Display all tags from a post
-                    foreach (var tag in existingTags)
+                    foreach (Tag? tag in existingTags)
                     {
                         WriteLine($"Tag Name: {tag.TagName}, Tag ID: {tag.TagID}");
                     }

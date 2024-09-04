@@ -10,7 +10,7 @@ This project creates the backend for a devblog and portfolio website. Currently 
 - Create, display, and delete Author (Future User)
 
 ## Known issues:
-- No known issues.
+- Data does not save after application is closed.
 
 ## Technologies used:
 - C# 12 
