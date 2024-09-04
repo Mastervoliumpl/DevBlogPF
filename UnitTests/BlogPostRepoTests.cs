@@ -46,6 +46,9 @@ namespace UnitTests.Repositories
             var author = new Author("John", "Doe");
             string originalTitle = "Original Blog Post";
             string originalBodyText = "Original body text.";
+            string updatedTitle = "Updated Blog Post";
+            string updatedBodyText = "Updated body text.";
+
             var blogPost = new BlogPost(originalTitle, author, originalBodyText);
             Guid postId = blogPost.PostID;
 
@@ -53,11 +56,11 @@ namespace UnitTests.Repositories
                 .Returns([blogPost]); // (List<Post> { blogPost }) Setup the GetAllPosts method to return a list with the blogPost object. (Runs GetAllPosts without the actual implementation)
 
             // Act
-            _blogPostRepo.EditBlogPost("Updated Blog Post", "Updated body text.", postId);
+            _blogPostRepo.EditBlogPost(updatedTitle, updatedBodyText, postId);
 
             // Assert
-            Assert.Equal("Updated Blog Post", blogPost.Title);
-            Assert.Equal("Updated body text.", blogPost.BodyText);
+            Assert.Equal(updatedTitle, blogPost.Title);
+            Assert.Equal(updatedBodyText, blogPost.BodyText);
             Assert.True(blogPost.DateModified > blogPost.DateCreated);
         }
     }
